@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blen.exam.dao.WithdrawalMapper">
+
+  <resultMap id="BaseResultMap" type="com.blen.exam.domain.Withdrawal">
+    <id column="f_id" jdbcType="BIGINT" property="id"/>
+    <result column="f_user_id" jdbcType="BIGINT" property="userId"/>
+    <result column="f_address" jdbcType="VARCHAR" property="address"/>
+    <result column="f_currency" jdbcType="VARCHAR" property="currency"/>
+    <result column="f_txhash" jdbcType="VARCHAR" property="txhash"/>
+    <result column="f_amount" jdbcType="VARCHAR" property="amount"/>
+    <result column="f_fee" jdbcType="VARCHAR" property="fee"/>
+    <result column="f_real_fee" jdbcType="VARCHAR" property="realFee"/>
+    <result column="f_confirm_times" jdbcType="TINYINT" property="confirmTimes"/>
+    <result column="f_height" jdbcType="BIGINT" property="height"/>
+    <result column="f_extra" jdbcType="VARCHAR" property="extra"/>
+    <result column="f_created_at" jdbcType="BIGINT" property="createdAt"/>
+    <result column="f_updated_at" jdbcType="BIGINT" property="updatedAt"/>
+    <result column="f_version" jdbcType="BIGINT" property="version"/>
+    <result column="f_state" jdbcType="TINYINT" property="state"/>
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    f_id, f_user_id, f_address, f_currency, f_txhash,f_amount,
+    f_fee, f_real_fee, f_confirm_times, f_height,f_extra, f_created_at,
+    f_updated_at, f_version, f_state
+  </sql>
+
+  <insert id="insert" parameterType="com.blen.exam.domain.Withdrawal"
+    keyColumn="f_id" keyProperty="id" useGeneratedKeys="true">
+    insert into t_withdraw
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        f_id,
+      </if>
+      <if test="userId != null">
+        f_user_id,
+      </if>
+      <if test="address != null">
+        f_address,
+      </if>
+      <if test="currency != null">
+        f_currency,
+      </if>
+      <if test="txhash != null">
+        f_txhash,
+      </if>
+      <if test="amount != null">
+        f_amount,
+      </if>
+      <if test="fee != null">
+        f_fee,
+      </if>
+      <if test="realFee != null">
+        f_real_fee,
+      </if>
+      <if test="confirmTimes != null">
+        f_confirm_times,
+      </if>
+      <if test="height != null">
+        f_height,
+      </if>
+      <if test="extra != null">
+        f_extra,
+      </if>
+      <if test="createdAt != null">
+        f_created_at,
+      </if>
+      <if test="updatedAt != null">
+        f_updated_at,
+      </if>
+      <if test="version != null">
+        f_version,
+      </if>
+      <if test="state != null">
+        f_state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="currency != null">
+        #{currency,jdbcType=VARCHAR},
+      </if>
+      <if test="txhash != null">
+        #{txhash,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="fee != null">
+        #{fee,jdbcType=DECIMAL},
+      </if>
+      <if test="realFee != null">
+        #{realFee,jdbcType=DECIMAL},
+      </if>
+      <if test="confirmTimes != null">
+        #{confirmTimes,jdbcType=TINYINT},
+      </if>
+      <if test="height != null">
+        #{height,jdbcType=BIGINT},
+      </if>
+      <if test="extra != null">
+        #{extra,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null">
+        #{createdAt,jdbcType=BIGINT},
+      </if>
+      <if test="updatedAt != null">
+        #{updatedAt,jdbcType=BIGINT},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=BIGINT},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=TINYINT},
+      </if>
+
+    </trim>
+  </insert>
+
+  <select id="selectByUserIdAndUpdateAt" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from t_withdraw
+    where f_user_id = #{userId,jdbcType=BIGINT}
+    and f_currency = #{currency,jdbcType=VARCHAR}
+    and f_updated_at between #{todayStart,jdbcType=BIGINT} and #{todayEnd,jdbcType=BIGINT}
+    and f_state = #{state,jdbcType=TINYINT}
+  </select>
+
+  <select id="selectByIdAndState" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from t_withdraw
+    where f_id = #{id,jdbcType=BIGINT}
+    and f_state = #{state,jdbcType=TINYINT}
+  </select>
+
+  <update id="updateStateById">
+    update t_withdraw
+    set f_state = #{state,jdbcType=TINYINT},
+    f_version = f_version + 1
+    where f_id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <update id="updateTxhashHeightAndRealFee">
+    update t_withdraw
+    set f_txhash = #{txhash,jdbcType=VARCHAR},
+    f_height = #{height,jdbcType=BIGINT},
+    f_real_fee = #{realFee,jdbcType=DECIMAL},
+    f_version = f_version + 1
+    where f_id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
