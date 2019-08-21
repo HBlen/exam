@@ -2,7 +2,6 @@ package com.blen.exam.domain;
 
 import java.math.BigDecimal;
 
-
 public class UserAccount {
 
   private Long id;

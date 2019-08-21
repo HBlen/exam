@@ -22,5 +22,4 @@ public class WithdrawalCreateParam {
   private BigDecimal fee;
 
   private String address;
-
 }

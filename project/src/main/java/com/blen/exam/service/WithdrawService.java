@@ -74,7 +74,8 @@ public class WithdrawService {
     if (withdrawal == null) {
       throw new RuntimeException("无此提现单");
     }
-    withdrawalMapper.updateTxhashHeightAndRealFee(payParam.getId(), payParam.getTxhash(), payParam.getHeight(), payParam.getRealFee());
+    withdrawalMapper.updateTxhashHeightAndRealFee(
+        payParam.getId(), payParam.getTxhash(), payParam.getHeight(), payParam.getRealFee());
     withdrawalMapper.updateStateById(payParam.getId(), 3);
   }
 }

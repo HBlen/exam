@@ -2,10 +2,7 @@ package com.blen.exam.domain;
 
 import java.math.BigDecimal;
 
-import sun.jvm.hotspot.debugger.cdbg.Sym;
-
 import com.blen.exam.data.req.WithdrawalCreateParam;
-import com.sun.tools.javac.code.Symtab;
 import lombok.Builder;
 import lombok.Data;
 
@@ -43,7 +40,7 @@ public class Withdrawal {
 
   private Integer state;
 
-  public static Withdrawal buildFromCreateParam(WithdrawalCreateParam createParam){
+  public static Withdrawal buildFromCreateParam(WithdrawalCreateParam createParam) {
     return Withdrawal.builder()
         .userId(createParam.getUserId())
         .address(createParam.getAddress())
