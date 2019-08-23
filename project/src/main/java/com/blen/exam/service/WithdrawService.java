@@ -18,7 +18,6 @@ import com.blen.exam.domain.UserInfo;
 import com.blen.exam.domain.UserWithdrawAddress;
 import com.blen.exam.domain.Withdrawal;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
