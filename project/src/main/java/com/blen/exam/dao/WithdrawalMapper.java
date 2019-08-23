@@ -39,7 +39,7 @@ public interface WithdrawalMapper {
    * 更改提现单状态
    *
    * @param id 提现单id
-   * @param state 状态， 0已废弃 1初始创建 2钱包提走 3已打款
+   * @param state 状态， 1初始创建 2钱包提走 3已打款
    * @return
    */
   Integer updateStateById(@Param("id") Long id, @Param("state") Integer state);

@@ -44,6 +44,8 @@ public class Withdrawal {
 
   private Integer state;
 
+  private Integer discard;
+
   public static Withdrawal buildFromCreateParam(WithdrawalCreateParam createParam) {
     return Withdrawal.builder()
         .userId(createParam.getUserId())
@@ -54,6 +56,7 @@ public class Withdrawal {
         .createdAt(System.currentTimeMillis())
         .updatedAt(System.currentTimeMillis())
         .state(1)
+        .discard(1)
         .build();
   }
 }

@@ -20,12 +20,13 @@
     <result column="f_updated_at" jdbcType="BIGINT" property="updatedAt"/>
     <result column="f_version" jdbcType="BIGINT" property="version"/>
     <result column="f_state" jdbcType="TINYINT" property="state"/>
+    <result column="f_discard" jdbcType="TINYINT" property="discard"/>
   </resultMap>
 
   <sql id="Base_Column_List">
     f_id, f_user_id, f_address, f_currency, f_txhash,f_amount,
     f_fee, f_real_fee, f_confirm_times, f_height,f_extra, f_created_at,
-    f_updated_at, f_version, f_state
+    f_updated_at, f_version, f_state, f_discard
   </sql>
 
   <insert id="insert" parameterType="com.blen.exam.domain.Withdrawal"
@@ -77,6 +78,9 @@
       <if test="state != null">
         f_state,
       </if>
+      <if test="discard != null">
+        f_discard,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -124,6 +128,9 @@
       <if test="state != null">
         #{state,jdbcType=TINYINT},
       </if>
+      <if test="discard != null">
+        #{discard,jdbcType=TINYINT},
+      </if>
 
     </trim>
   </insert>
@@ -136,6 +143,7 @@
     and f_currency = #{currency,jdbcType=VARCHAR}
     and f_updated_at between #{todayStart,jdbcType=BIGINT} and #{todayEnd,jdbcType=BIGINT}
     and f_state = #{state,jdbcType=TINYINT}
+    and f_discard = 1;
   </select>
 
   <select id="selectByIdAndState" resultMap="BaseResultMap">
@@ -144,6 +152,7 @@
     from t_withdraw
     where f_id = #{id,jdbcType=BIGINT}
     and f_state = #{state,jdbcType=TINYINT}
+    and f_discard = 1;
   </select>
 
   <update id="updateStateById">
@@ -151,6 +160,7 @@
     set f_state = #{state,jdbcType=TINYINT},
     f_version = f_version + 1
     where f_id = #{id,jdbcType=BIGINT}
+    and f_discard = 1;
   </update>
 
   <update id="updateTxhashHeightAndRealFee">
@@ -160,5 +170,6 @@
     f_real_fee = #{realFee,jdbcType=DECIMAL},
     f_version = f_version + 1
     where f_id = #{id,jdbcType=BIGINT}
+    and f_discard = 1;
   </update>
 </mapper>

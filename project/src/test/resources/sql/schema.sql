@@ -15,9 +15,10 @@ CREATE TABLE `t_withdraw` (
   `f_created_at` bigint(20) unsigned NOT NULL ,
   `f_updated_at` bigint(20) unsigned NOT NULL ,
   `f_version` bigint(20) unsigned NOT NULL DEFAULT '0' ,
-  `f_state` tinyint(4) unsigned NOT NULL DEFAULT '0' ,
+  `f_state` tinyint(3) unsigned NOT NULL DEFAULT '0' ,
+  `f_discard` tinyint(2) NOT NULL DEFAULT '1' ,
   PRIMARY KEY (`f_id`),
-  UNIQUE KEY `uniq_id` (`f_id`)
+  UNIQUE KEY `uniq_id` (`f_id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `t_user_withdraw_address`;
