@@ -19,11 +19,11 @@ import com.blen.exam.domain.UserWithdrawAddress;
 import com.blen.exam.domain.Withdrawal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 @Service
 public class WithdrawService {
-  // todo:数据库内部异常
   @Autowired private WithdrawalMapper withdrawalMapper;
   @Autowired private UserWithdrawAddressMapper userWithdrawAddressMapper;
   @Autowired private UserAccountMapper userAccountMapper;
@@ -42,8 +42,12 @@ public class WithdrawService {
         createParam.getUserId(), createParam.getCurrency(), createParam.getAmount());
 
     Withdrawal withdrawal = Withdrawal.buildFromCreateParam(createParam);
-    withdrawalMapper.insert(withdrawal);
-    return withdrawal.getId();
+    try {
+      withdrawalMapper.insert(withdrawal);
+      return withdrawal.getId();
+    } catch (DuplicateKeyException ex) {
+      throw new DuplicateKeyException("提现单重复");
+    }
   }
 
   /**

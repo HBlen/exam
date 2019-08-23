@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blen.exam.dao.UserInfoMapper">
+
+  <resultMap id="BaseResultMap" type="com.blen.exam.domain.UserInfo">
+    <id column="f_id" jdbcType="BIGINT" property="id"/>
+    <result column="f_user_name" jdbcType="VARCHAR" property="userName"/>
+    <result column="f_phone" jdbcType="VARCHAR" property="phone"/>
+    <result column="f_extra" jdbcType="VARCHAR" property="extra"/>
+    <result column="f_created_at" jdbcType="BIGINT" property="createdAt"/>
+    <result column="f_updated_at" jdbcType="BIGINT" property="updatedAt"/>
+    <result column="f_version" jdbcType="BIGINT" property="version"/>
+    <result column="f_state" jdbcType="TINYINT" property="state"/>
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    f_id, f_user_id, f_currency, f_balance,f_extra,
+     f_created_at, f_updated_at, f_version, f_state
+  </sql>
+
+  <insert id="insert" parameterType="com.blen.exam.domain.UserAccount"
+    keyColumn="f_id" keyProperty="id" useGeneratedKeys="true">
+    insert into t_user_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        f_id,
+      </if>
+      <if test="userName != null">
+        f_user_name,
+      </if>
+      <if test="phone != null">
+        f_phone,
+      </if>
+      <if test="extra != null">
+        f_extra,
+      </if>
+      <if test="createdAt != null">
+        f_created_at,
+      </if>
+      <if test="updatedAt != null">
+        f_updated_at,
+      </if>
+      <if test="version != null">
+        f_version,
+      </if>
+      <if test="state != null">
+        f_state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=BIGINT},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="extra != null">
+        #{extra,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null">
+        #{createdAt,jdbcType=BIGINT},
+      </if>
+      <if test="updatedAt != null">
+        #{updatedAt,jdbcType=BIGINT},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=BIGINT},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+
+  <select id="selectByUserIdAndCurrency" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from t_user_account
+    where f_user_id = #{userId,jdbcType=BIGINT}
+    and f_currency = #{currency,jdbcType=VARCHAR}
+    and f_state = 1
+  </select>
+
+  <update id="updateByUserIdAndCurrency">
+    update t_user_account
+    set f_balance = #{balance,jdbcType=DECIMAL}
+    where f_user_id = #{userId,jdbcType=BIGINT}
+    and f_currency = #{currency,jdbcType=VARCHAR}
+    and f_state = 1
+  </update>
+</mapper>
