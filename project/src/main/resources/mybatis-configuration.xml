@@ -6,4 +6,10 @@
   <properties>
     <property name="queryTimeoutSecond" value="5"/>
   </properties>
+  <mappers>
+    <mapper resource="com.blen.exam.dao/UserAccountMapper.xml"/>
+    <mapper resource="com.blen.exam.dao/UserWithdrawAddressMapper.xml"/>
+    <mapper resource="com.blen.exam.dao/WithdrawalMapper.xml"/>
+    <mapper resource="com.blen.exam.dao/UserInfoMapper.xml"/>
+  </mappers>
 </configuration>

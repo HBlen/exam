@@ -1,0 +1,3 @@
+-- INSERT INTO t_user_account (id,name,address,city,telephone) VALUES (1, 'tom','am','beijing',1333333);
+-- INSERT INTO t_user_withdraw_address (id,name,address,city,telephone) VALUES (1, 'tom','am','beijing',1333333);
+-- INSERT INTO t_withdraw (f_user_id,f_address,f_currency,f_txhash,f_amount,f_fee,f_real_fee,f_confirm_times,f_height,f_extra,f_created_at,f_updated_at,f_version,f_state) VALUES (1111, 'address','btc','txhash',200,0.5,0.4,1,1111,'extra',1111,1111,1,1);

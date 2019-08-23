@@ -56,6 +56,7 @@ public class WithdrawControllerTest {
 
   @Test
   public void fetch() throws Exception {
+    when(withdrawService.fetch(any())).thenReturn(1);
     WithdrawalFetchParam fetchParam = WithdrawalFetchParam.builder().userId(2000L).id(2L).build();
     String requestJson = JSONObject.toJSONString(fetchParam);
     mockMvc
@@ -68,6 +69,7 @@ public class WithdrawControllerTest {
 
   @Test
   public void query() throws Exception {
+    when(withdrawService.pay(any())).thenReturn(1);
     WithdrawalPayParam payParam =
         WithdrawalPayParam.builder()
             .id(3L)

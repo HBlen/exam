@@ -29,13 +29,13 @@ public class WithdrawController {
 
   @ApiOperation("钱包提款")
   @PostMapping("/fetch")
-  public void fetch(@Validated @RequestBody WithdrawalFetchParam fetchParam) {
-    withdrawService.fetch(fetchParam);
+  public Integer fetch(@Validated @RequestBody WithdrawalFetchParam fetchParam) {
+    return withdrawService.fetch(fetchParam);
   }
 
   @ApiOperation("打款")
   @PostMapping("/pay")
-  public void pay(@Validated @RequestBody WithdrawalPayParam payParam) {
-    withdrawService.pay(payParam);
+  public Integer pay(@Validated @RequestBody WithdrawalPayParam payParam) {
+    return withdrawService.pay(payParam);
   }
 }

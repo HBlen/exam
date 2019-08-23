@@ -2,6 +2,15 @@ package com.blen.exam.domain;
 
 import java.math.BigDecimal;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserAccount {
 
   private Long id;
@@ -10,7 +19,7 @@ public class UserAccount {
 
   private String currency;
 
-  private BigDecimal amountAll;
+  private BigDecimal balance;
 
   private String extra;
 

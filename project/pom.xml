@@ -22,6 +22,7 @@
 		<hikaricp.version>3.3.1</hikaricp.version>
 		<mybatis-spring-boot-starter.version>2.1.0</mybatis-spring-boot-starter.version>
 		<swagger-bootstrap-ui.version>1.9.5</swagger-bootstrap-ui.version>
+		<resource.delimiter>#</resource.delimiter>
 	</properties>
 
 	<dependencies>
@@ -83,6 +84,7 @@
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<scope>test</scope>
+			<version>1.4.199</version>
 		</dependency>
 
 		<!--PowerMock包依赖-->
@@ -112,6 +114,26 @@
 
 	</dependencies>
 
+	<profiles>
+		<!--开发环境-->
+		<profile>
+			<id>development</id>
+			<properties>
+				<spring.profiles.active>development</spring.profiles.active>
+			</properties>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+		<!--测试环境-->
+		<profile>
+			<id>test</id>
+			<properties>
+				<spring.profiles.active>test</spring.profiles.active>
+			</properties>
+		</profile>
+	</profiles>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -119,6 +141,18 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
+
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+			<resource>
+				<directory>src/main/resources.${spring.profiles.active}</directory>
+				<filtering>false</filtering>
+			</resource>
+		</resources>
 	</build>
+
 
 </project>
